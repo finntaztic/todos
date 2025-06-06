@@ -1,0 +1,22 @@
+import { btnFunctions } from "./btnFunctions";
+
+const UI = (() => {
+    const {dialogControl, buttonControl} = btnFunctions(); 
+
+
+    //project button and dialog
+    const btnOpenAddProject = document.querySelector('.btn-open-add-project');
+    const dialogAddProject = document.querySelector('.dialog-add-project');
+
+    function btnClicks (){
+        buttonControl(btnOpenAddProject).onClick(() => {
+            dialogControl(dialogAddProject).open();
+        });
+    }
+
+    return {
+        btnClicks,
+    };
+})();
+
+export { UI } 
