@@ -1,20 +1,22 @@
 //this is for btn functions
-function dialogControl (dialog){
-    return {
-        open: () => dialog.showModal(),
-        close: () => dialog.close()
+function btnFunctions (){
+    function dialogControl (dialog){
+        return {
+            open: () => dialog.showModal(),
+            close: () => dialog.close()
+        };
     }
-}
 
-function buttonControl (button){
+    function buttonControl (button){
+        return {
+            onClick: (handler) => button.addEventListener("click", handler),
+        };
+    }
+
     return {
-        onClick: (handler) => button.addEventListener("click", handler),
+        dialogControl,
+        buttonControl
     };
 }
 
-const btnOpenAddProject = document.querySelector('.btn-open-add-project');
-const dialogAddProject = document.querySelector('.dialog_add-project');
-
-btnOpenAddProject.onclick(() => {
-    dialogAddProject.open();
-})
+export { btnFunctions };
