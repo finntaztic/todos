@@ -13,14 +13,6 @@ function btnFunctions (){
         };
     }
 
-
-    // function renderProject (array){
-
-    //     const projectList = document.querySelector('project-list');
-    //     const projectInput = document.querySelector('#project-input').value;
-    //     projectList.appendChild(projectInput)
-    // }
-
     return {
         dialogControl,
         buttonControl

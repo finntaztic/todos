@@ -30,8 +30,6 @@ const UI = (() => {
             const newProjects = projectInput;
 
             Project.pushProject(newProjects);
-            
-            //reverses the array and get the last entry and render it
             Project.renderProject(Project.getProject());
         });
 
