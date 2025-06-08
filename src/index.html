@@ -17,18 +17,46 @@
                     <p>Projects</p>
                     <button class="btn-open-add-project">+</button>
                 </div>
+                    <ul class="list-project"></ul>
+                    <dialog class="dialog-add-project">
+                        <button class="btn-close-project">X</button>
+                        <h2>Add new project</h2>
+                        <input type="text" id="project-input" name="project-input"><br>
+                        <button class="btn-add-project">Add project</button>
+                        
+                    </dialog>
+                
             </nav>
         </section>
-        <section class="main">
-            <button>Add task</button>
+        <section class="column-add-task">
+
+            <button class="btn-open-add-task" >Add task</button>
             <p>sampple tasks</p>
+
+            <dialog class="dialog-add-task">
+                <button class="btn-close-task">X</button>
+                <p>Add new task<p>
+                <form>
+                    <label for="title">Title</label><br>
+                    <input type="text" id="title" name="title"><br>
+
+                    <label for="description">Description</label><br>
+                    <input type="description" id="description" name="description"><br>
+                    <label for="date">Due Date</label><br>
+                    <input type="date" id="date" value="2025-06-03" /><br>
+
+                    <label for="priority">Priority</label><br>
+                        <select name="priority" id="priority">
+                            <option value="⭐️⭐️⭐️">⭐️⭐️⭐️ High</option>
+                            <option value="⭐️⭐️">⭐️⭐️ Mid</option>
+                            <option value="⭐️">⭐️ Low</option>
+                        </select><br>
+                    <label for="project">Project</label><br>
+                        <select name="project" id="project"></select><br>
+                    <button class="btn-add-task">Add new Task</button>
+                </form>
+            </dialog>
         </section>
     </div>
-    <dialog class="dialog-add-project">
-        <h2>Hi there!</h2>
-        <p>This is a simple native HTML dialog.</p>
-    </dialog>
-
-
 </body>
 </html>

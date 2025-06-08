@@ -33,7 +33,7 @@ header {
   grid-row: 2/3;
 }
 
-.main {
+.column-add-task {
   background-color: red;
   grid-column: 2/3;
   grid-row: 2/3;
