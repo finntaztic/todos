@@ -7,7 +7,6 @@ const Project = (() => {
         projects.push(project);
         console.log(projects);
     }
-
     function addProject (){
         const projectInput = document.querySelector('#project-input').value;
         pushProject(projectInput);
@@ -21,6 +20,7 @@ const Project = (() => {
             let li = document.createElement("li");
             let btnLi = document.createElement('button');
             btnLi.innerText = last;
+            btnLi.classList = 'btn-task';
             li.appendChild(btnLi);
             ul.appendChild(li);
 
@@ -30,10 +30,24 @@ const Project = (() => {
             option.innerText = last;
             projectLi.appendChild(option);
     }
+    // //
+    function loadProject (){
+        const navBtns = document.querySelectorAll('.btn-task');
+
+        navBtns.forEach((item) => {
+            if (item.innerText = 'All Tasks'){
+                console.log ('hello');
+        }
+        })
+
+    }
+    loadProject();
+
     return {
         addProject,
         getProject,
-        pushProject
+        pushProject,
+        loadProject
     }
 })();
 

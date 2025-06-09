@@ -41,8 +41,23 @@ const UI = (() => {
         });
 
         //add to do in the array and webpage
-        buttonControl(btnAddTask).onClick(Todo.addTodo)
+        // buttonControl(btnAddTask).onClick(Todo.addTodo)
+        // buttonControl(allTasks).onClick(navClick)
+
     }
+
+    // function test (e){
+    //     e.preventDefault()
+    //     console.log('hello')
+    // }
+    
+
+    // function navClick(){
+        
+    //         console.log('hello');
+        
+    //         //render all to dos
+    // }
 
     return {
         btnClicks,

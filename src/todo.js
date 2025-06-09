@@ -30,8 +30,6 @@ const Todo = (() => {
         todo.push (arr)
         console.log(todo)
     }
-
-
     function addTodo (e){
         e.preventDefault()
         const title = document.querySelector('#title').value;
@@ -43,7 +41,6 @@ const Todo = (() => {
         Todo.pushTodo(todo) // pushing newly added todo in the array
         Todo.renderTodo(todo)
     }
-
     function renderTodo (todo){
         const listTask = document.querySelector('.list-task');
         const tr = document.createElement('tr');
@@ -53,9 +50,7 @@ const Todo = (() => {
             <td><p>${todo.getTitle()}</p></td>
             <td><p>${todo.getDescription()}</p></td>
             <td><p>${todo.getProject()}</p></td>`
-
     }
-    
     return {
         pushTodo,
         addTodo,
