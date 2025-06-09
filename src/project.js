@@ -8,6 +8,11 @@ const Project = (() => {
         console.log(projects);
     }
 
+    function addProject (){
+        const projectInput = document.querySelector('#project-input').value;
+        pushProject(projectInput);
+        renderProject(getProject())
+    }
     //add the project in the webpage
     function renderProject (arr){
         //reverses the array and get the last entry  in the input and render it
@@ -26,9 +31,9 @@ const Project = (() => {
             projectLi.appendChild(option);
     }
     return {
+        addProject,
         getProject,
-        pushProject,
-        renderProject
+        pushProject
     }
 })();
 

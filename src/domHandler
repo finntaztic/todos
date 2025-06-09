@@ -1,53 +1,47 @@
 import { btnFunctions } from "./btnFunctions";
 import { Project } from "./project"; 
+import { Todo } from "./todo";
+
 
 const UI = (() => {
     const {dialogControl, buttonControl} = btnFunctions(); 
-
-
     //project button and dialog
     const btnOpenAddProject = document.querySelector('.btn-open-add-project');
     const btnCloseProject = document.querySelector('.btn-close-project');
     const btnAddProject = document.querySelector('.btn-add-project');
     const dialogAddProject = document.querySelector('.dialog-add-project');
-
     //add task button 
     const btnOpenAddTask = document.querySelector('.btn-open-add-task')
     const btnCloseTask = document.querySelector('.btn-close-task')
     const dialogAddTask = document.querySelector('.dialog-add-task');
+    const btnAddTask = document.querySelector('.btn-add-task');
+
+    //all buttons
+    const allTasks = document.querySelector('.btn-all-task');
 
 
     function btnClicks (){
-
         //open dialog project
         buttonControl(btnOpenAddProject).onClick(() => {
             dialogControl(dialogAddProject).open();
         });
-
         //add project
-        buttonControl(btnAddProject).onClick(() => {
-            const projectInput = document.querySelector('#project-input').value;
-            const newProjects = projectInput;
-
-            Project.pushProject(newProjects);
-            Project.renderProject(Project.getProject());
-        });
-
+        buttonControl(btnAddProject).onClick(Project.addProject);
         //close dialog project
         buttonControl(btnCloseProject).onClick(() => {
             dialogControl(dialogAddProject).close();
         });
-
         //open dialog task
         buttonControl(btnOpenAddTask).onClick(() => {
             dialogControl(dialogAddTask).open();
         });
-
-
         //close dialog task
         buttonControl(btnCloseTask).onClick(() => {
             dialogControl(dialogAddTask).close();
         });
+
+        //add to do in the array and webpage
+        buttonControl(btnAddTask).onClick(Todo.addTodo)
     }
 
     return {
