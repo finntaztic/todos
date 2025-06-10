@@ -9,7 +9,7 @@ function btnFunctions (){
 
     function buttonControl (button){
         return {
-            onClick: (handler) => button.addEventListener("click", handler)
+            onClick: (handler) => button.addEventListener("click", handler),
         };
     }
 

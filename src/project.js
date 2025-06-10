@@ -1,4 +1,6 @@
 import { Todo } from "./todo";
+import { Todos } from "./todo";
+
 
 const Project = (() => {
     const projects = [];
@@ -12,7 +14,7 @@ const Project = (() => {
     function addProject (){
         const projectInput = document.querySelector('#project-input').value;
         pushProject(projectInput);
-        renderProject(getProject())
+        renderProject(getProject());
     }
     //add the project in the webpage
     function renderProject (arr){
@@ -22,7 +24,7 @@ const Project = (() => {
             let li = document.createElement("li");
             let btnLi = document.createElement('button');
             btnLi.innerText = last;
-            btnLi.classList = 'btn-task';
+            btnLi.classList = 'btn-project';
             li.appendChild(btnLi);
             ul.appendChild(li);
 
@@ -32,32 +34,11 @@ const Project = (() => {
             option.innerText = last;
             projectLi.appendChild(option);
     }
-    // //
-    function loadProject (){
-
-        console.log(Todo.getTodo());
-        const todo = Todo.getTodo();
-
-        if (todo.getProject() == Todos.getProject()){
-            
-            Todo.renderTodo(todo)
-            console.log('test')
-        }
-        // const navBtns = document.querySelectorAll('.btn-task');
-
-        // navBtns.forEach((item) => {
-            // if (item.innerText = 'All Tasks'){
-                console.log ('hello');
-        // }
-        // })
-
-    }
 
     return {
         addProject,
         getProject,
-        pushProject,
-        loadProject
+        pushProject
     }
 })();
 

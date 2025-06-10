@@ -1,6 +1,7 @@
 import { btnFunctions } from "./btnFunctions";
 import { Project } from "./project"; 
 import { Todo } from "./todo";
+import { Todos } from "./todo";
 
 
 const UI = (() => {
@@ -17,7 +18,7 @@ const UI = (() => {
     const btnAddTask = document.querySelector('.btn-add-task');
 
     //all buttons
-    const allTasks = document.querySelector('.btn-task');
+    const btnProject = document.querySelectorAll('.btn-project');
 
 
     function btnClicks (){
@@ -27,6 +28,8 @@ const UI = (() => {
         });
         //add project
         buttonControl(btnAddProject).onClick(Project.addProject);
+      
+
         //close dialog project
         buttonControl(btnCloseProject).onClick(() => {
             dialogControl(dialogAddProject).close();
@@ -42,25 +45,38 @@ const UI = (() => {
 
         //add to do in the array and webpage
         buttonControl(btnAddTask).onClick(Todo.addTodo)
-        // buttonControl(allTasks).onClick(Project.loadProject)
-        allTasks.array.forEach(element => {
-            
+
+
+        document.addEventListener('click', (e) => {
+            if (e.target.matches('.btn-project')) {
+                const btnProject = document.querySelectorAll('.btn-project'); // <-- moved inside
+                console.log(btnProject); // Logs all current buttons each time
+                Todos.loadTodo()
+            }
         });
 
+
+        // const btnProject = document.querySelectorAll('.btn-project');
+
+        // document.addEventListener('click', (e) => {
+        //     // const projectBtn = document.querySelectorAll('.btn-project');
+        //     const allTasks = Todo.getTodo()
+        //     const matchingTasksArray = []
+        //     // const title = Todos.get
+        //     console.log(allTasks)
+        
+        //     const selectedProject = e.target.innerText;
+        //     const matchingTasks = allTasks.filter(task => task.getProject() == selectedProject);
+        //     console.log (matchingTasks);
+        //     matchingTasksArray.push(matchingTasks);
+
+        //     console.log(matchingTasksArray)
+        //     matchingTasksArray.get
+        //     // Todo.renderTodo(matchingTasksArray);
+
+        //     // Todo.renderTodo(matchingTasks);
+        // 
     }
-
-    // function test (e){
-    //     e.preventDefault()
-    //     console.log('hello')
-    // }
-    
-
-    // function navClick(){
-        
-    //         console.log('hello');
-        
-    //         //render all to dos
-    // }
 
     return {
         btnClicks,

@@ -41,11 +41,12 @@ const Todo = (() => {
 
         const todo = new Todos (title, description, project);
         Todo.pushTodo(todo) // pushing newly added todo in the array
-        Todo.renderTodo(todo)
+        // Todo.renderTodo(todo)
     }
     function renderTodo (todo){
         const listTask = document.querySelector('.list-task');
         const tr = document.createElement('tr');
+        tr.classList = 'list-task-content'
 
         listTask.appendChild(tr);
         tr.innerHTML =`
@@ -53,13 +54,17 @@ const Todo = (() => {
             <td><p>${todo.getDescription()}</p></td>
             <td><p>${todo.getProject()}</p></td>`
     }
+
+    function loadTodo (){
+        return console.log('hello');
+    }
     return {
         getTodo,
         pushTodo,
         addTodo,
-        renderTodo
+        renderTodo,
+        loadTodo
     }
-    
 })();
 
 export { Todos, Todo }
