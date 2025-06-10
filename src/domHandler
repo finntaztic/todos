@@ -17,7 +17,7 @@ const UI = (() => {
     const btnAddTask = document.querySelector('.btn-add-task');
 
     //all buttons
-    const allTasks = document.querySelector('.btn-all-task');
+    const allTasks = document.querySelector('.btn-task');
 
 
     function btnClicks (){
@@ -41,8 +41,11 @@ const UI = (() => {
         });
 
         //add to do in the array and webpage
-        // buttonControl(btnAddTask).onClick(Todo.addTodo)
-        // buttonControl(allTasks).onClick(navClick)
+        buttonControl(btnAddTask).onClick(Todo.addTodo)
+        // buttonControl(allTasks).onClick(Project.loadProject)
+        allTasks.array.forEach(element => {
+            
+        });
 
     }
 

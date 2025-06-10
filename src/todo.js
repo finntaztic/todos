@@ -26,6 +26,8 @@ class Todos {
 const Todo = (() => {
     const todo = [];
 
+    const getTodo = () => todo;
+
     function pushTodo (arr){
         todo.push (arr)
         console.log(todo)
@@ -52,6 +54,7 @@ const Todo = (() => {
             <td><p>${todo.getProject()}</p></td>`
     }
     return {
+        getTodo,
         pushTodo,
         addTodo,
         renderTodo

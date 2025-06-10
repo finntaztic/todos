@@ -1,3 +1,5 @@
+import { Todo } from "./todo";
+
 const Project = (() => {
     const projects = [];
 
@@ -32,16 +34,24 @@ const Project = (() => {
     }
     // //
     function loadProject (){
-        const navBtns = document.querySelectorAll('.btn-task');
 
-        navBtns.forEach((item) => {
-            if (item.innerText = 'All Tasks'){
-                console.log ('hello');
+        console.log(Todo.getTodo());
+        const todo = Todo.getTodo();
+
+        if (todo.getProject() == Todos.getProject()){
+            
+            Todo.renderTodo(todo)
+            console.log('test')
         }
-        })
+        // const navBtns = document.querySelectorAll('.btn-task');
+
+        // navBtns.forEach((item) => {
+            // if (item.innerText = 'All Tasks'){
+                console.log ('hello');
+        // }
+        // })
 
     }
-    loadProject();
 
     return {
         addProject,
