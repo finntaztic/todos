@@ -1,24 +1,22 @@
 import { btnFunctions } from "./btnFunctions";
-import { Project } from "./project"; 
+import { Project } from "./project";
 import { Todo } from "./todo";
 import { Todos } from "./todo";
 
 
 const UI = (() => {
-    const {dialogControl, buttonControl} = btnFunctions(); 
+    const {dialogControl, buttonControl} = btnFunctions();
     //project button and dialog
     const btnOpenAddProject = document.querySelector('.btn-open-add-project');
     const btnCloseProject = document.querySelector('.btn-close-project');
     const btnAddProject = document.querySelector('.btn-add-project');
     const dialogAddProject = document.querySelector('.dialog-add-project');
-    //add task button 
+    //add task button
     const btnOpenAddTask = document.querySelector('.btn-open-add-task')
     const btnCloseTask = document.querySelector('.btn-close-task')
     const dialogAddTask = document.querySelector('.dialog-add-task');
     const btnAddTask = document.querySelector('.btn-add-task');
-
     //all buttons
-    const btnProject = document.querySelectorAll('.btn-project');
 
 
     function btnClicks (){
@@ -28,7 +26,7 @@ const UI = (() => {
         });
         //add project
         buttonControl(btnAddProject).onClick(Project.addProject);
-      
+
 
         //close dialog project
         buttonControl(btnCloseProject).onClick(() => {
@@ -46,41 +44,31 @@ const UI = (() => {
         //add to do in the array and webpage
         buttonControl(btnAddTask).onClick(Todo.addTodo)
 
-
         document.addEventListener('click', (e) => {
-            if (e.target.matches('.btn-project')) {
-                const btnProject = document.querySelectorAll('.btn-project'); // <-- moved inside
-                console.log(btnProject); // Logs all current buttons each time
-                Todos.loadTodo()
+            const allTasks = Todo.getTodo();
+            const selectedProject = e.target.innerText;
+            
+            if (e.target.matches('.btn-project') && e.target.innerText !== 'All Tasks') {
+                const matchingTasks = allTasks.filter(task => task.getProject() == selectedProject);
+                Todo.renderTodo(matchingTasks);
+            } else {
+                Todo.renderTodo(allTasks);
             }
         });
 
-
-        // const btnProject = document.querySelectorAll('.btn-project');
-
         // document.addEventListener('click', (e) => {
-        //     // const projectBtn = document.querySelectorAll('.btn-project');
-        //     const allTasks = Todo.getTodo()
-        //     const matchingTasksArray = []
-        //     // const title = Todos.get
-        //     console.log(allTasks)
-        
-        //     const selectedProject = e.target.innerText;
-        //     const matchingTasks = allTasks.filter(task => task.getProject() == selectedProject);
-        //     console.log (matchingTasks);
-        //     matchingTasksArray.push(matchingTasks);
+        //     // const checkbox = document.querySelectorAll('#${checkboxID}');
 
-        //     console.log(matchingTasksArray)
-        //     matchingTasksArray.get
-        //     // Todo.renderTodo(matchingTasksArray);
+        //     if (e.target.matches('checkbox')){
+        //         console.log('hello');
+        //     }
+        // });
 
-        //     // Todo.renderTodo(matchingTasks);
-        // 
+
     }
-
     return {
         btnClicks,
     };
 })();
 
-export { UI } 
+export { UI }
