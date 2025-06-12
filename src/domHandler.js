@@ -36,13 +36,19 @@ const UI = (() => {
         buttonControl(btnOpenAddTask).onClick(() => {
             dialogControl(dialogAddTask).open();
         });
+
+        // btnOpenAddTask.addEventListener('click', () => {
+        //     console.log('hello');
+        // });
+
         //close dialog task
         buttonControl(btnCloseTask).onClick(() => {
             dialogControl(dialogAddTask).close();
         });
 
         //add to do in the array and webpage
-        buttonControl(btnAddTask).onClick(Todo.addTodo)
+        buttonControl(btnAddTask).onClick(Todo.addTodo);
+
 
         document.addEventListener('click', (e) => {
             const allTasks = Todo.getTodo();
@@ -51,20 +57,12 @@ const UI = (() => {
             if (e.target.matches('.btn-project') && e.target.innerText !== 'All Tasks') {
                 const matchingTasks = allTasks.filter(task => task.getProject() == selectedProject);
                 Todo.renderTodo(matchingTasks);
-            } else {
+            } else if (e.target.matches('.btn-project') && e.target.innerText == 'All Tasks') {
+                Todo.renderTodo(allTasks);
+            } else if (e.target.matches('.btn-add-task')){
                 Todo.renderTodo(allTasks);
             }
         });
-
-        // document.addEventListener('click', (e) => {
-        //     // const checkbox = document.querySelectorAll('#${checkboxID}');
-
-        //     if (e.target.matches('checkbox')){
-        //         console.log('hello');
-        //     }
-        // });
-
-
     }
     return {
         btnClicks,

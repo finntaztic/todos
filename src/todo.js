@@ -1,4 +1,5 @@
 class Todos {
+    #complete
     #title;
     #description;
     #date;
@@ -6,7 +7,8 @@ class Todos {
     #project;
     #id;
 
-    constructor (title, description, date, priority, project,  id = crypto.randomUUID()){
+    constructor (complete = false, title, description, date, priority, project,  id = crypto.randomUUID()){
+        this.#complete = complete;
         this.#title = title;
         this.#description = description;
         this.#date = date;
@@ -15,6 +17,7 @@ class Todos {
         this.#id = id;
     }
 
+    getComplete (){return this.#complete;};
     getTitle (){return this.#title;};
     getDescription (){return this.#description;};
     getDate (){return this.#date;};
@@ -44,36 +47,28 @@ const Todo = (() => {
 
         const todo = new Todos (title, description, date, priority, project);
         Todo.pushTodo(todo) // pushing newly added todo in the array
-        // Todo.renderTodo(todo)
     }
+
     function renderTodo (todos) {
-        const listTask = document.querySelector('.list-task');
+        const listTask = document.querySelector('.put-task');
         listTask.innerHTML = ''; // Clear previous tasks
 
         todos.forEach(todo => {
             const todoContainer = document.createElement('div');
             todoContainer.classList = 'list-task-content';
-            const checkboxID = `checkbox-${todo.getID()}`; // ✅ No space
+            todoContainer.contentEditable = 'true';
+            const checkboxID = `checkbox-${todo.getID()}`;
 
-            todoContainer.innerHTML = 
+            todoContainer.innerHTML =
                 `
-                <input type="checkbox" id="checkbox" name="checkbox" />
-                <label for="checkbox">${todo.getTitle()}</label>
+                <input type="checkbox" id="${checkboxID}" name="checkbox" ${todo.getComplete() ? 'checked' : ''}/>
+                <label for="${checkboxID}">${todo.getTitle()}</label>
                 <p>${todo.getDescription()}</p>
                 <p>${todo.getDate()}</p>
                 <p>${todo.getPriority()}</p>
                 <p>${todo.getProject()}</p>
                 <button class="btn-delete">Delete</button>`;
 
-        // const checkbox = todoContainer.querySelector(`#${checkboxID}`);
-        // checkbox.addEventListener('change', (e) => {
-        //     console.log (e.target.innerHTML)
-        //     // if (e.target.checked) {
-        //     //     todoContainer.classList.add('completed'); // You can style this class in CSS
-        //     // } else {
-        //     //     todoContainer.classList.remove('completed');
-        //     // }
-        // });
             listTask.appendChild(todoContainer);
         });
     }
@@ -81,7 +76,7 @@ const Todo = (() => {
         getTodo,
         pushTodo,
         addTodo,
-        renderTodo,
+        renderTodo
     }
 })();
 
