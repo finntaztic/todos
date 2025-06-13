@@ -53,7 +53,7 @@ const UI = (() => {
         document.addEventListener('click', (e) => {
             const allTasks = Todo.getTodo();
             const selectedProject = e.target.innerText;
-            
+
             if (e.target.matches('.btn-project') && e.target.innerText !== 'All Tasks') {
                 const matchingTasks = allTasks.filter(task => task.getProject() == selectedProject);
                 Todo.renderTodo(matchingTasks);
@@ -63,7 +63,47 @@ const UI = (() => {
                 Todo.renderTodo(allTasks);
             }
         });
+
+        document.addEventListener('DOMContentLoaded', () => {
+
+            const allTodo = Todo.getTodo();
+            // const selectedCheckbox = e.target.id;
+
+            document.addEventListener('change', (e) => {
+                if (e.target.matches("input[type='checkbox']")) {
+
+                    allTodo.forEach((todo) => {
+                        console.log(todo.getComplete())
+                    })
+                    
+                    // const matchingTodo = allTodo.filter(todo => todo.getid)
+                    // console.log(e.target.id)
+                    // //find the id, change the complete status
+                    // console.log('hello');
+                    // console.log(allTodo);
+
+                    // const allTodoFilter = allTodo.filter(todo => todo.getProject())
+                    // console.log(allTodoFilter);
+                    // // const taskCheck = Todo.getID();
+                    // const selectedTask = e.target.id;
+
+                    // taskCheck.getComplete() = true;
+                }
+            });
+        });
+
+
+            // taskCheck.forEach
+
+            // if (e.target.matches(`input[type='checkbox]`) && taskCheck.getComplete() == true ){
+            //     console.log('e.target.id');
+            // }
     }
+
+
+
+
+
     return {
         btnClicks,
     };

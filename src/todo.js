@@ -7,24 +7,23 @@ class Todos {
     #project;
     #id;
 
-    constructor (complete = false, title, description, date, priority, project,  id = crypto.randomUUID()){
-        this.#complete = complete;
+    constructor (title, description, date, priority, project,  id = crypto.randomUUID(), complete = false){
         this.#title = title;
         this.#description = description;
         this.#date = date;
         this.#priority = priority;
         this.#project = project;
         this.#id = id;
+        this.#complete = complete;
     }
 
-    getComplete (){return this.#complete;};
     getTitle (){return this.#title;};
     getDescription (){return this.#description;};
     getDate (){return this.#date;};
     getPriority (){return this.#priority;};
     getProject(){return this.#project;};
     getID(){return this.#id};
-
+    getComplete (){return this.#complete;};
 };
 
 const Todo = (() => {
