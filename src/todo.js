@@ -24,6 +24,11 @@ class Todos {
     getProject(){return this.#project;};
     getID(){return this.#id};
     getComplete (){return this.#complete;};
+    isComplete(value){
+        if (typeof value === 'boolean'){
+            this.#complete = value;
+        }
+    }
 };
 
 const Todo = (() => {
@@ -56,12 +61,11 @@ const Todo = (() => {
             const todoContainer = document.createElement('div');
             todoContainer.classList = 'list-task-content';
             todoContainer.contentEditable = 'true';
-            const checkboxID = `checkbox-${todo.getID()}`;
 
             todoContainer.innerHTML =
                 `
-                <input type="checkbox" id="${checkboxID}" name="checkbox" ${todo.getComplete() ? 'checked' : ''}/>
-                <label for="${checkboxID}">${todo.getTitle()}</label>
+                <input type="checkbox" id="${todo.getID()}" name="checkbox" ${todo.getComplete() ? 'checked' : ''}/>
+                <label for="${todo.getID()}">${todo.getTitle()}</label>
                 <p>${todo.getDescription()}</p>
                 <p>${todo.getDate()}</p>
                 <p>${todo.getPriority()}</p>

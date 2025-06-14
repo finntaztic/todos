@@ -65,39 +65,29 @@ const UI = (() => {
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-
             const allTodo = Todo.getTodo();
             // const selectedCheckbox = e.target.id;
 
             document.addEventListener('change', (e) => {
                 if (e.target.matches("input[type='checkbox']")) {
-
-                    allTodo.forEach((todo) => {
-                        console.log(todo.getComplete())
-                    })
-                    
-                    // const matchingTodo = allTodo.filter(todo => todo.getid)
-                    // console.log(e.target.id)
-                    // //find the id, change the complete status
-                    // console.log('hello');
-                    // console.log(allTodo);
-
-                    // const allTodoFilter = allTodo.filter(todo => todo.getProject())
-                    // console.log(allTodoFilter);
-                    // // const taskCheck = Todo.getID();
-                    // const selectedTask = e.target.id;
-
-                    // taskCheck.getComplete() = true;
-                }
+                    if (e.target.checked){
+                        const task = allTodo.find(todo => todo.getID() === e.target.id);
+                        console.log(task);
+                        if (task){
+                            task.isComplete(e.target.checked);
+                            console.log(task);
+                        }
+                    } else if (!e.target.checked){
+                        const task = allTodo.find(todo => todo.getID() === e.target.id);
+                        console.log(task);
+                        if (task){
+                            task.isComplete(e.target.checked);
+                            console.log(task);
+                        }
+                    }
+                } else return;
             });
         });
-
-
-            // taskCheck.forEach
-
-            // if (e.target.matches(`input[type='checkbox]`) && taskCheck.getComplete() == true ){
-            //     console.log('e.target.id');
-            // }
     }
 
 
