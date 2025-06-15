@@ -27,7 +27,7 @@ class Todos {
     isComplete(value){
         if (typeof value === 'boolean'){
             this.#complete = value;
-        }
+        } else return;
     }
 };
 
@@ -51,6 +51,9 @@ const Todo = (() => {
 
         const todo = new Todos (title, description, date, priority, project);
         Todo.pushTodo(todo) // pushing newly added todo in the array
+        localStorage.setItem('todoArray', JSON.stringify(getTodo()));
+        let parsedData = localStorage.getItem('todoArray');
+        console.log(parsedData);
     }
 
     function renderTodo (todos) {
@@ -82,5 +85,8 @@ const Todo = (() => {
         renderTodo
     }
 })();
+
+
+
 
 export { Todos, Todo }

@@ -27,7 +27,6 @@ const UI = (() => {
         //add project
         buttonControl(btnAddProject).onClick(Project.addProject);
 
-
         //close dialog project
         buttonControl(btnCloseProject).onClick(() => {
             dialogControl(dialogAddProject).close();
@@ -36,10 +35,6 @@ const UI = (() => {
         buttonControl(btnOpenAddTask).onClick(() => {
             dialogControl(dialogAddTask).open();
         });
-
-        // btnOpenAddTask.addEventListener('click', () => {
-        //     console.log('hello');
-        // });
 
         //close dialog task
         buttonControl(btnCloseTask).onClick(() => {
@@ -66,7 +61,6 @@ const UI = (() => {
 
         document.addEventListener('DOMContentLoaded', () => {
             const allTodo = Todo.getTodo();
-            // const selectedCheckbox = e.target.id;
 
             document.addEventListener('change', (e) => {
                 if (e.target.matches("input[type='checkbox']")) {
@@ -90,12 +84,8 @@ const UI = (() => {
         });
     }
 
-
-
-
-
     return {
-        btnClicks,
+        btnClicks
     };
 })();
 
