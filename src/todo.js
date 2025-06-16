@@ -1,3 +1,6 @@
+import { Storage } from "./storage";
+
+
 class Todos {
     #complete
     #title;
@@ -63,11 +66,14 @@ const Todo = (() => {
 
         const todo = new Todos (title, description, date, priority, project);
         Todo.pushTodo(todo) // pushing newly added todo in the array
-        console.log(todo);
-        console.log(getTodo())
-        localStorage.setItem('todoArray', JSON.stringify(getTodo()));
-        let parsedData = localStorage.getItem('todoArray');
-        console.log(parsedData);
+        Storage.setData('todoArray', getTodo()); //stores the array
+        //     const parsedData = JSON.parse(localStorage.getItem('todoArray'));
+        //     const restoredTodos = parsedData.map(obj =>
+        //         new Todos(obj.title, obj.description, obj.date, obj.priority, obj.project, obj.id, obj.complete)
+        //     );
+        //     console.log(restoredTodos)
+
+
     }
 
     function renderTodo (todos) {

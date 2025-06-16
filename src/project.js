@@ -1,7 +1,3 @@
-import { Todo } from "./todo";
-import { Todos } from "./todo";
-
-
 const Project = (() => {
     const projects = [];
 

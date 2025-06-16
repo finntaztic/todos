@@ -1,6 +1,7 @@
 import { btnFunctions } from "./btnFunctions";
 import { Project } from "./project";
 import { Todo } from "./todo";
+import { Storage } from "./storage";
 import { Todos } from "./todo";
 
 
@@ -44,7 +45,17 @@ const UI = (() => {
         //add to do in the array and webpage
         buttonControl(btnAddTask).onClick(Todo.addTodo);
 
+        buttonControl(btnAddTask).onClick(() => {
+            // Todo.addTodo;
+            // Storage.setData('todoArray', Todo.getTodo()); //stores the array
+            // const parsedData = JSON.parse(localStorage.getItem('todoArray'));
+            // const restoredTodos = parsedData.map(obj =>
+            //     new Todos(obj.title, obj.description, obj.date, obj.priority, obj.project, obj.id, obj.complete)
+            // );
+            // console.log(restoredTodos)
+        })
 
+        //render to the webpage
         document.addEventListener('click', (e) => {
             const allTasks = Todo.getTodo();
             const selectedProject = e.target.innerText;
@@ -79,7 +90,6 @@ const UI = (() => {
                         if (task){
                             task.isComplete(e.target.checked);
                             console.log(task);
-                            let parsedData = localStorage.getItem('todoArray');
                             console.log(parsedData);
                         }
                     }
