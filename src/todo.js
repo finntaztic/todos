@@ -17,6 +17,18 @@ class Todos {
         this.#complete = complete;
     }
 
+    toJSON() {
+        return {
+            title: this.#title,
+            description: this.#description,
+            date: this.#date,
+            priority: this.#priority,
+            project: this.#project,
+            id: this.#id,
+            complete: this.#complete
+        }
+    };
+
     getTitle (){return this.#title;};
     getDescription (){return this.#description;};
     getDate (){return this.#date;};
@@ -51,6 +63,8 @@ const Todo = (() => {
 
         const todo = new Todos (title, description, date, priority, project);
         Todo.pushTodo(todo) // pushing newly added todo in the array
+        console.log(todo);
+        console.log(getTodo())
         localStorage.setItem('todoArray', JSON.stringify(getTodo()));
         let parsedData = localStorage.getItem('todoArray');
         console.log(parsedData);

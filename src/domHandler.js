@@ -70,6 +70,8 @@ const UI = (() => {
                         if (task){
                             task.isComplete(e.target.checked);
                             console.log(task);
+                            let parsedData = localStorage.getItem('todoArray');
+                            console.log(parsedData);
                         }
                     } else if (!e.target.checked){
                         const task = allTodo.find(todo => todo.getID() === e.target.id);
@@ -77,6 +79,8 @@ const UI = (() => {
                         if (task){
                             task.isComplete(e.target.checked);
                             console.log(task);
+                            let parsedData = localStorage.getItem('todoArray');
+                            console.log(parsedData);
                         }
                     }
                 } else return;
