@@ -1,0 +1,82 @@
+import { Todo } from "./TodoApp.js";
+import { TodoCtr } from "./TodoController.js";
+import { Storage } from "./storage.js";
+
+
+const UI = (() => {
+    //add task button
+    const addTaskDialog = document.querySelector('.dialog-add-task')
+    const btnOpenAddTask = document.querySelector('.btn-open-add-task')
+    const btnCloseTask = document.querySelector('.btn-close-task')
+    const dialogAddTask = document.querySelector('.dialog-add-task');
+    const btnAddTask = document.querySelector('.btn-add-task');
+
+    function initTask (){
+        const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');  
+        TodoCtr.pushTodo(pretask)
+        Storage.save('myTodos', TodoCtr.getTodo());
+        Storage.load('myTodos');
+        Storage.render (Storage.load('myTodos'));
+    }
+
+    function btnClicks (){
+
+        btnCloseTask.addEventListener('click', () => {addTaskDialog.close()})
+        //open add task dialog
+        btnOpenAddTask.addEventListener('click', () => {addTaskDialog.showModal()});
+
+        //add task
+        btnAddTask.addEventListener('click', (e) => {
+            const values = TodoCtr.getFormValues(e); // no argument
+            const newTask = TodoCtr.createTodo(
+                values.title,
+                values.description,
+                values.date,
+                values.priority,
+                values.project
+            );
+            TodoCtr.pushTodo(newTask);
+            Storage.save('myTodos', TodoCtr.getTodo());
+            Storage.render(Storage.load('myTodos'));
+        })
+
+        //checking edits made in input and updating the array
+       document.addEventListener('DOMContentLoaded', () => {
+            const listTask = document.querySelector('.put-task');
+
+            listTask.addEventListener('input', function(e) {
+                const element = e.target;
+                const allTodo = TodoCtr.getTodo();
+                // console.log(allTodo);
+
+                if (element.classList.contains('editable')) {
+                    let value;
+                    const id = element.closest('.list-task-content').querySelector('input[type="checkbox"]').id; //this is a st
+                    const task = allTodo.find(todo => todo.getID() === id);
+
+                        if (element.dataset.field == 'title'){
+                            value = element.innerText;
+                            task.newTitle(value);
+                            console.log(task);
+                        } else if (element.dataset.field == 'description'){
+                            value = element.innerText;
+                            task.newDescription (value);
+                            console.log(task);
+                        } else if (element.dataset.field == 'date'){
+                            task.newDate (value);
+                            value = element.innerText;
+                            console.log(task);
+                        } 
+                    }
+            });
+        });
+    }
+
+    return {
+        initTask,
+        btnClicks
+    }
+    
+})();
+
+export { UI }

@@ -1,112 +1,112 @@
-import { Storage } from "./storage";
+// import { Storage } from "./storage";
 
 
-class Todos {
-    #complete
-    #title;
-    #description;
-    #date;
-    #priority;
-    #project;
-    #id;
+// class Todos {
+//     #complete
+//     #title;
+//     #description;
+//     #date;
+//     #priority;
+//     #project;
+//     #id;
 
-    constructor (title, description, date, priority, project,  id = crypto.randomUUID(), complete = false){
-        this.#title = title;
-        this.#description = description;
-        this.#date = date;
-        this.#priority = priority;
-        this.#project = project;
-        this.#id = id;
-        this.#complete = complete;
-    }
+//     constructor (title, description, date, priority, project,  id = crypto.randomUUID(), complete = false){
+//         this.#title = title;
+//         this.#description = description;
+//         this.#date = date;
+//         this.#priority = priority;
+//         this.#project = project;
+//         this.#id = id;
+//         this.#complete = complete;
+//     }
 
-    toJSON() {
-        return {
-            title: this.#title,
-            description: this.#description,
-            date: this.#date,
-            priority: this.#priority,
-            project: this.#project,
-            id: this.#id,
-            complete: this.#complete
-        }
-    };
+//     toJSON() {
+//         return {
+//             title: this.#title,
+//             description: this.#description,
+//             date: this.#date,
+//             priority: this.#priority,
+//             project: this.#project,
+//             id: this.#id,
+//             complete: this.#complete
+//         }
+//     };
 
-    getTitle (){return this.#title;};
-    getDescription (){return this.#description;};
-    getDate (){return this.#date;};
-    getPriority (){return this.#priority;};
-    getProject(){return this.#project;};
-    getID(){return this.#id};
-    getComplete (){return this.#complete;};
-    isComplete(value){
-        if (typeof value === 'boolean'){
-            this.#complete = value;
-        } else return;
-    }
-};
+//     getTitle (){return this.#title;};
+//     getDescription (){return this.#description;};
+//     getDate (){return this.#date;};
+//     getPriority (){return this.#priority;};
+//     getProject(){return this.#project;};
+//     getID(){return this.#id};
+//     getComplete (){return this.#complete;};
+//     isComplete(value){
+//         if (typeof value === 'boolean'){
+//             this.#complete = value;
+//         } else return;
+//     }
+// };
 
-const Todo = (() => {
-    const todo = [];
+// const Todo = (() => {
+//     const todo = [];
 
-    const getTodo = () => todo;
+//     const getTodo = () => todo;
 
-    function pushTodo (arr){
-        todo.push (arr)
-        console.log(todo)
-    }
-    function addTodo (e){
-        e.preventDefault()
-        const title = document.querySelector('#title').value;
-        const description = document.querySelector('#description').value;
-        const date = document.querySelector('#date').value;
-        const priority = document.querySelector('#priority').value;
-        const project = document.querySelector('#project').value;
-        console.log(project)
+//     function pushTodo (arr){
+//         todo.push (arr)
+//         console.log(todo)
+//     }
+//     function addTodo (e){
+//         e.preventDefault()
+//         const title = document.querySelector('#title').value;
+//         const description = document.querySelector('#description').value;
+//         const date = document.querySelector('#date').value;
+//         const priority = document.querySelector('#priority').value;
+//         const project = document.querySelector('#project').value;
+//         console.log(project)
 
-        const todo = new Todos (title, description, date, priority, project);
-        Todo.pushTodo(todo) // pushing newly added todo in the array
-        Storage.setData('todoArray', getTodo()); //stores the array
-        //     const parsedData = JSON.parse(localStorage.getItem('todoArray'));
-        //     const restoredTodos = parsedData.map(obj =>
-        //         new Todos(obj.title, obj.description, obj.date, obj.priority, obj.project, obj.id, obj.complete)
-        //     );
-        //     console.log(restoredTodos)
-
-
-    }
-
-    function renderTodo (todos) {
-        const listTask = document.querySelector('.put-task');
-        listTask.innerHTML = ''; // Clear previous tasks
-
-        todos.forEach(todo => {
-            const todoContainer = document.createElement('div');
-            todoContainer.classList = 'list-task-content';
-            todoContainer.contentEditable = 'true';
-
-            todoContainer.innerHTML =
-                `
-                <input type="checkbox" id="${todo.getID()}" name="checkbox" ${todo.getComplete() ? 'checked' : ''}/>
-                <label for="${todo.getID()}">${todo.getTitle()}</label>
-                <p>${todo.getDescription()}</p>
-                <p>${todo.getDate()}</p>
-                <p>${todo.getPriority()}</p>
-                <p>${todo.getProject()}</p>
-                <button class="btn-delete">Delete</button>`;
-
-            listTask.appendChild(todoContainer);
-        });
-    }
-    return {
-        getTodo,
-        pushTodo,
-        addTodo,
-        renderTodo
-    }
-})();
+//         const todo = new Todos (title, description, date, priority, project);
+//         Todo.pushTodo(todo) // pushing newly added todo in the array
+//         Storage.setData('todoArray', getTodo()); //stores the array
+//         //     const parsedData = JSON.parse(localStorage.getItem('todoArray'));
+//         //     const restoredTodos = parsedData.map(obj =>
+//         //         new Todos(obj.title, obj.description, obj.date, obj.priority, obj.project, obj.id, obj.complete)
+//         //     );
+//         //     console.log(restoredTodos)
 
 
+//     }
+
+//     function renderTodo (todos) {
+//         const listTask = document.querySelector('.put-task');
+//         listTask.innerHTML = ''; // Clear previous tasks
+
+//         todos.forEach(todo => {
+//             const todoContainer = document.createElement('div');
+//             todoContainer.classList = 'list-task-content';
+//             todoContainer.contentEditable = 'true';
+
+//             todoContainer.innerHTML =
+//                 `
+//                 <input type="checkbox" id="${todo.getID()}" name="checkbox" ${todo.getComplete() ? 'checked' : ''}/>
+//                 <label for="${todo.getID()}">${todo.getTitle()}</label>
+//                 <p>${todo.getDescription()}</p>
+//                 <p>${todo.getDate()}</p>
+//                 <p>${todo.getPriority()}</p>
+//                 <p>${todo.getProject()}</p>
+//                 <button class="btn-delete">Delete</button>`;
+
+//             listTask.appendChild(todoContainer);
+//         });
+//     }
+//     return {
+//         getTodo,
+//         pushTodo,
+//         addTodo,
+//         renderTodo
+//     }
+// })();
 
 
-export { Todos, Todo }
+
+
+// export { Todos, Todo }
