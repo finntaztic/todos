@@ -55,48 +55,48 @@
 //             // console.log(restoredTodos)
 //         })
 
-//         //render to the webpage
-//         document.addEventListener('click', (e) => {
-//             const allTasks = Todo.getTodo();
-//             const selectedProject = e.target.innerText;
+        //render to the webpage
+        document.addEventListener('click', (e) => {
+            const allTasks = Todo.getTodo();
+            const selectedProject = e.target.innerText;
 
-//             if (e.target.matches('.btn-project') && e.target.innerText !== 'All Tasks') {
-//                 const matchingTasks = allTasks.filter(task => task.getProject() == selectedProject);
-//                 Todo.renderTodo(matchingTasks);
-//             } else if (e.target.matches('.btn-project') && e.target.innerText == 'All Tasks') {
-//                 Todo.renderTodo(allTasks);
-//             } else if (e.target.matches('.btn-add-task')){
-//                 Todo.renderTodo(allTasks);
-//             }
-//         });
+            if (e.target.matches('.btn-project') && e.target.innerText !== 'All Tasks') {
+                const matchingTasks = allTasks.filter(task => task.getProject() == selectedProject);
+                Todo.renderTodo(matchingTasks);
+            } else if (e.target.matches('.btn-project') && e.target.innerText == 'All Tasks') {
+                Todo.renderTodo(allTasks);
+            } else if (e.target.matches('.btn-add-task')){
+                Todo.renderTodo(allTasks);
+            }
+        });
 
-//         document.addEventListener('DOMContentLoaded', () => {
-//             const allTodo = Todo.getTodo();
+        document.addEventListener('DOMContentLoaded', () => {
+            const allTodo = Todo.getTodo();
 
-//             document.addEventListener('change', (e) => {
-//                 if (e.target.matches("input[type='checkbox']")) {
-//                     if (e.target.checked){
-//                         const task = allTodo.find(todo => todo.getID() === e.target.id);
-//                         console.log(task);
-//                         if (task){
-//                             task.isComplete(e.target.checked);
-//                             console.log(task);
-//                             let parsedData = localStorage.getItem('todoArray');
-//                             console.log(parsedData);
-//                         }
-//                     } else if (!e.target.checked){
-//                         const task = allTodo.find(todo => todo.getID() === e.target.id);
-//                         console.log(task);
-//                         if (task){
-//                             task.isComplete(e.target.checked);
-//                             console.log(task);
-//                             console.log(parsedData);
-//                         }
-//                     }
-//                 } else return;
-//             });
-//         });
-//     }
+            document.addEventListener('change', (e) => {
+                if (e.target.matches("input[type='checkbox']")) {
+                    if (e.target.checked){
+                        const task = allTodo.find(todo => todo.getID() === e.target.id);
+                        console.log(task);
+                        if (task){
+                            task.isComplete(e.target.checked);
+                            console.log(task);
+                            let parsedData = localStorage.getItem('todoArray');
+                            console.log(parsedData);
+                        }
+                    } else if (!e.target.checked){
+                        const task = allTodo.find(todo => todo.getID() === e.target.id);
+                        console.log(task);
+                        if (task){
+                            task.isComplete(e.target.checked);
+                            console.log(task);
+                            console.log(parsedData);
+                        }
+                    }
+                } else return;
+            });
+        });
+    }
 
 //     return {
 //         btnClicks

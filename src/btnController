@@ -5,11 +5,18 @@ import { Storage } from "./storage.js";
 
 const UI = (() => {
     //add task button
-    const addTaskDialog = document.querySelector('.dialog-add-task')
     const btnOpenAddTask = document.querySelector('.btn-open-add-task')
     const btnCloseTask = document.querySelector('.btn-close-task')
     const dialogAddTask = document.querySelector('.dialog-add-task');
     const btnAddTask = document.querySelector('.btn-add-task');
+
+    //projects
+
+    //project button and dialog
+    const btnOpenAddProject = document.querySelector('.btn-open-add-project');
+    const btnCloseProject = document.querySelector('.btn-close-project');
+    const btnAddProject = document.querySelector('.btn-add-project');
+    const dialogAddProject = document.querySelector('.dialog-add-project');
 
     function initTask (){
         const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');  
@@ -20,10 +27,13 @@ const UI = (() => {
     }
 
     function btnClicks (){
+        //adding projects listeners
+        btnOpenAddProject?.addEventListener
 
-        btnCloseTask.addEventListener('click', () => {addTaskDialog.close()})
+        //adding task event listeners 
+        btnCloseTask.addEventListener('click', () => {dialogAddTask.close()})
         //open add task dialog
-        btnOpenAddTask.addEventListener('click', () => {addTaskDialog.showModal()});
+        btnOpenAddTask.addEventListener('click', () => {dialogAddTask.showModal()});
 
         //add task
         btnAddTask.addEventListener('click', (e) => {
@@ -54,20 +64,52 @@ const UI = (() => {
                     const id = element.closest('.list-task-content').querySelector('input[type="checkbox"]').id; //this is a st
                     const task = allTodo.find(todo => todo.getID() === id);
 
-                        if (element.dataset.field == 'title'){
+                        if (element.dataset.field === 'title'){
                             value = element.innerText;
                             task.newTitle(value);
                             console.log(task);
-                        } else if (element.dataset.field == 'description'){
+                        } else if (element.dataset.field === 'description'){
                             value = element.innerText;
                             task.newDescription (value);
                             console.log(task);
-                        } else if (element.dataset.field == 'date'){
+                        } else if (element.dataset.field === 'date'){
+                            value = element.value;
                             task.newDate (value);
+                            console.log(task);
+                        } else if (element.dataset.field === 'priority'){
+                            value = element.value;
+                            task.newPriority (value);
+                            console.log(task);
+                        } else if (element.dataset.field === 'project'){
                             value = element.innerText;
+                            task.newProject (value);
                             console.log(task);
                         } 
                     }
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const allTodo = TodoCtr.getTodo();
+
+            document.addEventListener('change', (e) => {
+                if (e.target.matches("input[type='checkbox']")) {
+                    if (e.target.checked){
+                        const task = allTodo.find(todo => todo.getID() === e.target.id);
+                        console.log(task);
+                        if (task){
+                            task.isComplete(e.target.checked);
+                            console.log(task);
+                        }
+                    } else if (!e.target.checked){
+                        const task = allTodo.find(todo => todo.getID() === e.target.id);
+                        console.log(task);
+                        if (task){
+                            task.isComplete(e.target.checked);
+                            console.log(task);
+                        }
+                    }
+                } else return;
             });
         });
     }
