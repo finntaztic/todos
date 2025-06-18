@@ -4,7 +4,6 @@ const TodoCtr = (() => {
     const todo = [];
     const getTodo = () => todo;
 
-
     function getFormValues (e){
         e.preventDefault()
         return {
@@ -16,7 +15,7 @@ const TodoCtr = (() => {
         }
     }
 
-    function createTodo(title, description, date, priority, project = 'default', id = crypto.randomUUID(), complete = false) {
+    function createTodo(title, description, date, priority, project = 'Project 1', id = crypto.randomUUID(), complete = false) {
         return new Todo(title, description, date, priority, project, id, complete);
     }
 
@@ -25,15 +24,44 @@ const TodoCtr = (() => {
         console.log(todo)
     }
 
-    function saveEdit (input){
-        console.log(input.innerHTML);
-    }
+    function render (todos){
+
+        const listTask = document.querySelector('.put-task');
+        listTask.innerHTML = ''; // Clear previous tasks
+
+        todos.forEach(todo => {
+            const todoContainer = document.createElement('div');
+            todoContainer.classList = 'list-task-content';
+            // todoContainer.contentEditable = 'true';
+
+            todoContainer.innerHTML =
+                `
+                <input class="editable" type="checkbox" id="${todo.getID()}" name="checkbox" ${todo.getComplete() ? 'checked' : ''}/>
+                <p class="editable" data-field= "title" contenteditable="true">${todo.getTitle()}</p>
+
+                <p class="editable" data-field= "description" contenteditable="true">${todo.getDescription()}</p>
+                <input class="editable" data-field= "date" type="date" value="${todo.getDate()}"/>
+                <select class="editable" data-field= "priority">
+                    <option value="⭐️" ${todo.getPriority() === '⭐️' ? 'selected' : ''}>⭐️</option>
+                    <option value="⭐️⭐️" ${todo.getPriority() === '⭐️⭐️' ? 'selected' : ''}>⭐️⭐️</option>
+                    <option value="⭐️⭐️⭐️" ${todo.getPriority() === '⭐️⭐️⭐️' ? 'selected' : ''}>⭐️⭐️⭐️</option>
+                </select>
+                <select class="editable" data-field= "project">
+                </select>
+                <p class="editable" data-field= "project" id = "projectSelect" >${todo.getProject()}</p> 
+                <button class="btn-delete">Delete</button>
+                `;
+
+            listTask.appendChild(todoContainer);
+        });
+    };
+
     return {
         getTodo,
         pushTodo,
         getFormValues,
         createTodo,
-        saveEdit
+        render
     }
 })();
 

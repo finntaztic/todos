@@ -1,6 +1,7 @@
 import { Todo } from "./TodoApp.js";
 import { TodoCtr } from "./TodoController.js";
 import { Storage } from "./storage.js";
+import { Project } from "./project.js";
 
 
 const UI = (() => {
@@ -22,13 +23,33 @@ const UI = (() => {
         const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');  
         TodoCtr.pushTodo(pretask)
         Storage.save('myTodos', TodoCtr.getTodo());
-        Storage.load('myTodos');
-        Storage.render (Storage.load('myTodos'));
+        TodoCtr.render (Storage.load('myTodos'));
+    }
+    
+     function initProject (){
+        const preProject = "Project 1";
+        Project.render(preProject)
+        Project.push(preProject);
+        Storage.save('myProjects', Project.get());
+        const parsed = JSON.parse(localStorage.getItem('myProjects'));
+        Project.render(parsed);
     }
 
     function btnClicks (){
         //adding projects listeners
-        btnOpenAddProject?.addEventListener
+        btnOpenAddProject.addEventListener('click', () => {dialogAddProject.showModal()});
+        btnCloseProject.addEventListener('click', () => {dialogAddTask.close()});
+
+        btnAddProject.addEventListener('click', (e) => {
+            e.preventDefault();
+            const newProject = document.querySelector('#project-input').value;
+            Project.push(newProject);
+            Storage.save('myProjects', Project.get());
+            const parsed = JSON.parse(localStorage.getItem('myProjects'));
+            Project.render(parsed);
+            dialogAddProject.close();
+        });
+
 
         //adding task event listeners 
         btnCloseTask.addEventListener('click', () => {dialogAddTask.close()})
@@ -47,7 +68,7 @@ const UI = (() => {
             );
             TodoCtr.pushTodo(newTask);
             Storage.save('myTodos', TodoCtr.getTodo());
-            Storage.render(Storage.load('myTodos'));
+            TodoCtr.render(Storage.load('myTodos'));
         })
 
         //checking edits made in input and updating the array
@@ -57,7 +78,6 @@ const UI = (() => {
             listTask.addEventListener('input', function(e) {
                 const element = e.target;
                 const allTodo = TodoCtr.getTodo();
-                // console.log(allTodo);
 
                 if (element.classList.contains('editable')) {
                     let value;
@@ -80,11 +100,12 @@ const UI = (() => {
                             value = element.value;
                             task.newPriority (value);
                             console.log(task);
-                        } else if (element.dataset.field === 'project'){
-                            value = element.innerText;
-                            task.newProject (value);
-                            console.log(task);
-                        } 
+                        }
+                        // } else if (element.dataset.field === 'project'){
+                        //     value = element.innerText;
+                        //     task.newProject (value);
+                        //     console.log(task);
+                        // } 
                     }
             });
         });
@@ -116,6 +137,7 @@ const UI = (() => {
 
     return {
         initTask,
+        initProject,
         btnClicks
     }
     
