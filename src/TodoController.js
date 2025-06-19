@@ -1,7 +1,16 @@
+import { Project } from "./project.js";
 import { Todo } from "./TodoApp.js";
 
 const TodoCtr = (() => {
-    const todo = [];
+    const todo = [
+        {
+            title: 'title',
+            description: 'description',
+            date: '2025-11-25',
+            priority: '⭐️⭐️',
+            project: Project.get()[0]
+        }
+    ];
     const getTodo = () => todo;
 
     function getFormValues (e){
@@ -15,9 +24,9 @@ const TodoCtr = (() => {
         }
     }
 
-    function createTodo(title, description, date, priority, project = 'Project 1', id = crypto.randomUUID(), complete = false) {
-        return new Todo(title, description, date, priority, project, id, complete);
-    }
+    // function createTodo(title, description, date, priority, project = Project.get()[0], id = crypto.randomUUID(), complete = false) {
+    //     return new Todo(title, description, date, priority, project, id, complete);
+    // }
 
     function pushTodo (arr){
         todo.push (arr)
@@ -48,7 +57,7 @@ const TodoCtr = (() => {
                 </select>
                 <select class="editable" data-field= "project">
                 </select>
-                <p class="editable" data-field= "project" id = "projectSelect" >${todo.getProject()}</p> 
+                <p class="editable" data-field= "project" id = "projectSelect">${todo.getProject()}</p> 
                 <button class="btn-delete">Delete</button>
                 `;
 
@@ -60,7 +69,7 @@ const TodoCtr = (() => {
         getTodo,
         pushTodo,
         getFormValues,
-        createTodo,
+        // createTodo,
         render
     }
 })();
