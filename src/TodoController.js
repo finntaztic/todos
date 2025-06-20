@@ -3,13 +3,17 @@ import { Todo } from "./TodoApp.js";
 
 const TodoCtr = (() => {
     const todo = [
-        {
-            title: 'title',
-            description: 'description',
-            date: '2025-11-25',
-            priority: '⭐️⭐️',
-            project: Project.get()[0]
-        }
+        // {
+        //     title: 'title',
+        //     description: 'description',
+        //     date: '2025-11-25',
+        //     priority: '⭐️⭐️',
+        //     project: Project.get()[0],
+        //     id: crypto.randomUUID(),
+        //     complete: false
+        // }
+            
+        
     ];
     const getTodo = () => todo;
 
@@ -24,9 +28,9 @@ const TodoCtr = (() => {
         }
     }
 
-    // function createTodo(title, description, date, priority, project = Project.get()[0], id = crypto.randomUUID(), complete = false) {
-    //     return new Todo(title, description, date, priority, project, id, complete);
-    // }
+    function createTodo(title, description, date, priority, project = Project.get()[0], id = crypto.randomUUID(), complete = false) {
+        return new Todo(title, description, date, priority, project, id, complete);
+    }
 
     function pushTodo (arr){
         todo.push (arr)
@@ -69,7 +73,7 @@ const TodoCtr = (() => {
         getTodo,
         pushTodo,
         getFormValues,
-        // createTodo,
+        createTodo,
         render
     }
 })();

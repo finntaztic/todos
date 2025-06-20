@@ -39,15 +39,15 @@ const UI = (() => {
             // If there are already tasks saved, render them directly
             TodoCtr.render(savedTodos);
         } else {
-            Storage.save('myTodos', TodoCtr.getTodo());
-            TodoCtr.render(Storage.load('myTodos'));
+            // Storage.save('myTodos', TodoCtr.getTodo());
+            // TodoCtr.render(Storage.load('myTodos'));
 
             // If no saved tasks, create one default task
-            // const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');  
-            // TodoCtr.pushTodo(pretask); //pushes the task to the todo array
+            const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');  
+            TodoCtr.pushTodo(pretask); //pushes the task to the todo array
             // // existingTask.push(pretask);
-            // Storage.save('myTodos', TodoCtr.getTodo()); // save the array to the local storage
-            // TodoCtr.render(Storage.load('myTodos')); // get the items in the local storage and render them in the webpage 
+            Storage.save('myTodos', TodoCtr.getTodo()); // save the array to the local storage
+            TodoCtr.render(Storage.load('myTodos')); // get the items in the local storage and render them in the webpage 
         }
     }
 
@@ -73,22 +73,22 @@ const UI = (() => {
         btnOpenAddTask.addEventListener('click', () => {dialogAddTask.showModal()});
 
         //add task
-        btnAddTask.addEventListener('click', (e) => {
-            const values = TodoCtr.getFormValues(e); // no argument
-            const newTask = TodoCtr.createTodo(
-                values.title,
-                values.description,
-                values.date,
-                values.priority,
-                values.project
-            );
-            // const existingTask = JSON.parse(localStorage.getItem('myTodos')); // get the current local storage
-            // existingTask.push(newTask); //pushes new project to the local storage
-            // Storage.save('myTodos', existingTask) //save the task to the local storage
-            TodoCtr.pushTodo(newTask);
-            Storage.save('myTodos', TodoCtr.getTodo());
-            TodoCtr.render(Storage.load('myTodos'));
-        })
+        // btnAddTask.addEventListener('click', (e) => {
+        //     const values = TodoCtr.getFormValues(e); // no argument
+        //     const newTask = TodoCtr.createTodo(
+        //         values.title,
+        //         values.description,
+        //         values.date,
+        //         values.priority,
+        //         values.project
+        //     );
+        //     // const existingTask = JSON.parse(localStorage.getItem('myTodos')); // get the current local storage
+        //     // existingTask.push(newTask); //pushes new project to the local storage
+        //     // Storage.save('myTodos', existingTask) //save the task to the local storage
+        //     TodoCtr.pushTodo(newTask);
+        //     Storage.save('myTodos', TodoCtr.getTodo());
+        //     TodoCtr.render(Storage.load('myTodos'));
+        // })
 
         //checking edits made in input and updating the array
        document.addEventListener('DOMContentLoaded', () => {
