@@ -20,35 +20,33 @@ const UI = (() => {
     const dialogAddProject = document.querySelector('.dialog-add-project');
 
     const savedProjects = JSON.parse(localStorage.getItem('myProjects'));
-    const parsed = JSON.parse(localStorage.getItem('myProjects')); // get the item saved in the project local storage
-
 
     function initProject (){
         if (savedProjects.length > 0){ //if the local storage array is not empty
-            Project.render(parsed); //render the existing content from the local storage array
+            Project.render(JSON.parse(localStorage.getItem('myProjects'))); //render the existing content from the local storage array
         } else {
-            Storage.save('myProjects', Project.get()); //save the content of the array to the local storage
+            const projects = Project.get();//get the current array
+            localStorage.setItem('myProjects', JSON.stringify(projects));//save it to the local storage
             Project.render(parsed); //render the saved content to the webpage
         }
-    }
+    };
 
     function initTask (){
-        const savedTodos = Storage.load('myTodos');
-
-        if (savedTodos.length > 0) {
-            // If there are already tasks saved, render them directly
-            TodoCtr.render(savedTodos);
+        const savedTodos = JSON.parse(localStorage.getItem('myTodos'));
+        if (savedTodos.length > 0){
+            console.log(savedTodos);
+            TodoCtr.render(JSON.parse(localStorage.getItem('myTodos')))
         } else {
+            const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');
+            console.log(pretask);
+            // TodoCtr.pushTodo(pretask);
             // Storage.save('myTodos', TodoCtr.getTodo());
             // TodoCtr.render(Storage.load('myTodos'));
-
-            // If no saved tasks, create one default task
-            const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');  
-            TodoCtr.pushTodo(pretask); //pushes the task to the todo array
-            // // existingTask.push(pretask);
-            Storage.save('myTodos', TodoCtr.getTodo()); // save the array to the local storage
-            TodoCtr.render(Storage.load('myTodos')); // get the items in the local storage and render them in the webpage 
+            // TodoCtr.render(TodoCtr.getTodo());
         }
+        // Storage.save('myTodos', todos);
+        // // const existingTodos = JSON.parse(localStorage.getItem('myTodos'));
+        // TodoCtr.render(Storage.load('myTodos'));
     }
 
     function btnClicks (){
@@ -67,30 +65,31 @@ const UI = (() => {
         });
 
 
-        //adding task event listeners 
+        //adding task event listeners
         btnCloseTask.addEventListener('click', () => {dialogAddTask.close()})
         //open add task dialog
         btnOpenAddTask.addEventListener('click', () => {dialogAddTask.showModal()});
 
         //add task
-        btnAddTask.addEventListener('click', (e) => {
-            const values = TodoCtr.getFormValues(e); // no argument
-            const newTask = TodoCtr.createTodo(
-                values.title,
-                values.description,
-                values.date,
-                values.priority,
-                values.project
-            );
-            // const existingTask = JSON.parse(localStorage.getItem('myTodos')); // get the current local storage
-            // existingTask.push(newTask); //pushes new project to the local storage
-            // Storage.save('myTodos', existingTask) //save the task to the local storage
-            TodoCtr.pushTodo(newTask);
-            TodoCtr.render(TodoCtr.getTodo());
+        // btnAddTask.addEventListener('click', (e) => {
+        //     const values = TodoCtr.getFormValues(e); // no argument
+        //     const newTask = TodoCtr.createTodo(
+        //         values.title,
+        //         values.description,
+        //         values.date,
+        //         values.priority,
+        //         values.project
+        //     );
 
-            // Storage.save('myTodos', TodoCtr.getTodo());
-            // TodoCtr.render(Storage.load('myTodos'));
-        });
+        //     TodoCtr.pushTodo(newTask);
+        //     Storage.save('myTodos', TodoCtr.getTodo());
+
+        //     // console.log(TodoCtr.getTodo());
+        //     // const existingTodos = JSON.parse(localStorage.getItem('myTodos'));
+        //     // console.log(existingTodos);
+        //     // Storage.save('myTodos', TodoCtr.getTodo());
+        //     // TodoCtr.render(existingTodos)
+        // });
 
         //checking edits made in input and updating the array
        document.addEventListener('DOMContentLoaded', () => {
@@ -109,6 +108,8 @@ const UI = (() => {
                             value = element.innerText;
                             task.newTitle(value);
                             console.log(task);
+                            Storage.save('myTodos', task);
+                            // Storage.load('myTodos')
                         } else if (element.dataset.field === 'description'){
                             value = element.innerText;
                             task.newDescription (value);
@@ -125,7 +126,7 @@ const UI = (() => {
                             value = element.innerText;
                             task.newProject (value);
                             console.log(task);
-                        } 
+                        }
                     }
             });
         });
@@ -197,7 +198,7 @@ const UI = (() => {
         initProject,
         btnClicks
     }
-    
+
 })();
 
 export { UI }

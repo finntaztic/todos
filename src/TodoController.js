@@ -2,19 +2,7 @@ import { Project } from "./project.js";
 import { Todo } from "./TodoApp.js";
 
 const TodoCtr = (() => {
-    const todo = [
-        // {
-        //     title: 'title',
-        //     description: 'description',
-        //     date: '2025-11-25',
-        //     priority: '⭐️⭐️',
-        //     project: Project.get()[0],
-        //     id: crypto.randomUUID(),
-        //     complete: false
-        // }
-            
-        
-    ];
+    const todo = [];
     const getTodo = () => todo;
 
     function getFormValues (e){

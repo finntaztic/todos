@@ -19,7 +19,6 @@ const Storage = (() => {
     return {
         save,
         load
-        // render
     };
 })();
 
