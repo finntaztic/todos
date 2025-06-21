@@ -22,32 +22,45 @@ const UI = (() => {
     const savedProjects = JSON.parse(localStorage.getItem('myProjects'));
 
     function initProject (){
-        if (savedProjects.length > 0){ //if the local storage array is not empty
-            Project.render(JSON.parse(localStorage.getItem('myProjects'))); //render the existing content from the local storage array
-        } else {
-            const projects = Project.get();//get the current array
-            localStorage.setItem('myProjects', JSON.stringify(projects));//save it to the local storage
-            Project.render(parsed); //render the saved content to the webpage
+        if (!localStorage.getItem('myProjects')) {
+            // If localStorage is empty, we initialize it
+            const projects = Project.get();
+            localStorage.setItem('myProjects', JSON.stringify(projects));
         }
+        // Regardless of whether it was empty or not, we now safely load it
+        const savedProjects = JSON.parse(localStorage.getItem('myProjects'));
+        Project.render(savedProjects);
     };
 
-    function initTask (){
-        const savedTodos = JSON.parse(localStorage.getItem('myTodos'));
-        if (savedTodos.length > 0){
-            console.log(savedTodos);
-            TodoCtr.render(JSON.parse(localStorage.getItem('myTodos')))
-        } else {
-            const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');
-            console.log(pretask);
-            // TodoCtr.pushTodo(pretask);
-            // Storage.save('myTodos', TodoCtr.getTodo());
-            // TodoCtr.render(Storage.load('myTodos'));
-            // TodoCtr.render(TodoCtr.getTodo());
-        }
-        // Storage.save('myTodos', todos);
-        // // const existingTodos = JSON.parse(localStorage.getItem('myTodos'));
-        // TodoCtr.render(Storage.load('myTodos'));
-    }
+    // const savedTask = JSON.parse(localStorage.getItem('myTodos'));
+
+    // function initTask (){
+    //     if (savedTask.length > 0){
+    //         TodoCtr.render(JSON.parse(localStorage.getItem('myTodos'))); //render the existing content from the local storage array
+    //     } else {
+    //         const tasks = TodoCtr.getTodo();
+    //         localStorage.setItem('myTodos', JSON.stringify(tasks));
+    //         TodoCtr.render()
+    //     }
+    // }
+    // function initTask() {
+    //     localStorage.setItem('myTodos', TodoCtr.getTodo());
+    //     const saved = localStorage.getItem('myTodos');
+    //     const savedTodos = saved ? JSON.parse(saved) : [];
+
+    //     if (savedTodos.length > 0) {
+    //         console.log(savedTodos);
+    //         TodoCtr.render(savedTodos);
+    //     } else {
+    //         const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');
+    //         console.log(pretask);
+    //         // You can uncomment below if you want to save the pretask
+    //         TodoCtr.pushTodo(pretask);
+    //         localStorage.setItem('myTodos', JSON.stringify(TodoCtr.getTodo()));
+    //         TodoCtr.render(TodoCtr.getTodo());
+    //     }
+    // }
+    
 
     function btnClicks (){
         //adding projects listeners
@@ -132,7 +145,8 @@ const UI = (() => {
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const allTodo = TodoCtr.getTodo();
+            // const allTodo = TodoCtr.getTodo();
+            const allTodo = Storage.load('myTodos');
 
             document.addEventListener('change', (e) => {
                 if (e.target.matches("input[type='checkbox']")) {
@@ -141,6 +155,7 @@ const UI = (() => {
                         console.log(task);
                         if (task){
                             task.isComplete(e.target.checked);
+                            localStorage.setItem('myTodos', JSON.stringify(allTodo));
                             console.log(task);
                         }
                     } else if (!e.target.checked){
@@ -149,6 +164,7 @@ const UI = (() => {
                         if (task){
                             task.isComplete(e.target.checked);
                             console.log(task);
+                            localStorage.setItem('myTodos', JSON.stringify(allTodo));
                         }
                     }
                 } else return;
@@ -156,7 +172,7 @@ const UI = (() => {
         });
 
         document.addEventListener('click', (e) => {
-            const allTasks = TodoCtr.getTodo();
+            const allTasks = Storage.load('myTodos');
             const selectedProject = e.target.innerText;
 
             if (e.target.matches('.btn-project') && e.target.innerText !== 'All Tasks') {
@@ -170,7 +186,7 @@ const UI = (() => {
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const allTodo = TodoCtr.getTodo();
+            const allTodo = Storage.load('myTodos');
 
             document.addEventListener('change', (e) => {
                 if (e.target.matches("input[type='checkbox']")) {
@@ -194,7 +210,7 @@ const UI = (() => {
     }
 
     return {
-        initTask,
+        // initTask,
         initProject,
         btnClicks
     }
