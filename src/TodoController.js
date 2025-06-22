@@ -2,7 +2,32 @@ import { Project } from "./project.js";
 import { Todo } from "./TodoApp.js";
 
 const TodoCtr = (() => {
-    const todo = [];
+    const todo = [
+        new Todo(
+            'sample title',
+            'sample description',
+            '2025-11-25',
+            '⭐️⭐️⭐️',
+            'Project 1'
+        ),
+    ];
+
+    function setTodo(arr) {
+        todo.length = 0; // clear current array
+        arr.forEach(obj => {
+            const newTodo = new Todo(
+                obj.title,
+                obj.description,
+                obj.date,
+                obj.priority,
+                obj.project,
+                obj.id,
+                obj.complete // or whatever you call your complete property
+            );
+            todo.push(newTodo);
+        });
+    };
+
     const getTodo = () => todo;
 
     function getFormValues (e){
@@ -62,7 +87,8 @@ const TodoCtr = (() => {
         pushTodo,
         getFormValues,
         createTodo,
-        render
+        render,
+        setTodo
     }
 })();
 

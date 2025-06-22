@@ -11,15 +11,11 @@ const UI = (() => {
     const dialogAddTask = document.querySelector('.dialog-add-task');
     const btnAddTask = document.querySelector('.btn-add-task');
 
-    //projects
-
     //project button and dialog
     const btnOpenAddProject = document.querySelector('.btn-open-add-project');
     const btnCloseProject = document.querySelector('.btn-close-project');
     const btnAddProject = document.querySelector('.btn-add-project');
     const dialogAddProject = document.querySelector('.dialog-add-project');
-
-    const savedProjects = JSON.parse(localStorage.getItem('myProjects'));
 
     function initProject (){
         if (!localStorage.getItem('myProjects')) {
@@ -32,17 +28,23 @@ const UI = (() => {
         Project.render(savedProjects);
     };
 
+    function initTask () {
+        if (!localStorage.getItem('myTodos')) {
+            const tasks = TodoCtr.getTodo();
+            console.log(tasks);
+            localStorage.setItem('myTodos', JSON.stringify(tasks));
+        }
+
+        
+        const savedTasks = JSON.parse(localStorage.getItem('myTodos'));
+        console.log(savedTasks);
+        TodoCtr.setTodo(savedTasks);  // <-- rehydrate plain objects
+        TodoCtr.render(TodoCtr.getTodo());
+    }
+    
     // const savedTask = JSON.parse(localStorage.getItem('myTodos'));
 
-    // function initTask (){
-    //     if (savedTask.length > 0){
-    //         TodoCtr.render(JSON.parse(localStorage.getItem('myTodos'))); //render the existing content from the local storage array
-    //     } else {
-    //         const tasks = TodoCtr.getTodo();
-    //         localStorage.setItem('myTodos', JSON.stringify(tasks));
-    //         TodoCtr.render()
-    //     }
-    // }
+
     // function initTask() {
     //     localStorage.setItem('myTodos', TodoCtr.getTodo());
     //     const saved = localStorage.getItem('myTodos');
@@ -84,25 +86,19 @@ const UI = (() => {
         btnOpenAddTask.addEventListener('click', () => {dialogAddTask.showModal()});
 
         //add task
-        // btnAddTask.addEventListener('click', (e) => {
-        //     const values = TodoCtr.getFormValues(e); // no argument
-        //     const newTask = TodoCtr.createTodo(
-        //         values.title,
-        //         values.description,
-        //         values.date,
-        //         values.priority,
-        //         values.project
-        //     );
+        btnAddTask.addEventListener('click', (e) => {
+            const values = TodoCtr.getFormValues(e); // no argument
+            const newTask = TodoCtr.createTodo(
+                values.title,
+                values.description,
+                values.date,
+                values.priority,
+                values.project
+            );
 
-        //     TodoCtr.pushTodo(newTask);
-        //     Storage.save('myTodos', TodoCtr.getTodo());
-
-        //     // console.log(TodoCtr.getTodo());
-        //     // const existingTodos = JSON.parse(localStorage.getItem('myTodos'));
-        //     // console.log(existingTodos);
-        //     // Storage.save('myTodos', TodoCtr.getTodo());
-        //     // TodoCtr.render(existingTodos)
-        // });
+            TodoCtr.pushTodo(newTask);
+            Storage.save('myTodos', TodoCtr.getTodo());
+        });
 
         //checking edits made in input and updating the array
        document.addEventListener('DOMContentLoaded', () => {
@@ -111,6 +107,7 @@ const UI = (() => {
             listTask.addEventListener('input', function(e) {
                 const element = e.target;
                 const allTodo = TodoCtr.getTodo();
+                // const allTodo = Storage.load('myTodos');
 
                 if (element.classList.contains('editable')) {
                     let value;
@@ -121,58 +118,54 @@ const UI = (() => {
                             value = element.innerText;
                             task.newTitle(value);
                             console.log(task);
-                            Storage.save('myTodos', task);
+                            Storage.save('myTodos', allTodo);
                             // Storage.load('myTodos')
                         } else if (element.dataset.field === 'description'){
                             value = element.innerText;
                             task.newDescription (value);
                             console.log(task);
+                            Storage.save('myTodos', allTodo);
                         } else if (element.dataset.field === 'date'){
                             value = element.value;
                             task.newDate (value);
                             console.log(task);
+                            Storage.save('myTodos', allTodo);
                         } else if (element.dataset.field === 'priority'){
                             value = element.value;
                             task.newPriority (value);
                             console.log(task);
+                            Storage.save('myTodos', allTodo);
                         } else if (element.dataset.field === 'project'){
                             value = element.innerText;
                             task.newProject (value);
                             console.log(task);
+                            Storage.save('myTodos', allTodo);
                         }
                     }
             });
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            // const allTodo = TodoCtr.getTodo();
-            const allTodo = Storage.load('myTodos');
+            // const allTodo = Storage.load('myTodos');
+                const allTodo = TodoCtr.getTodo();
+
 
             document.addEventListener('change', (e) => {
                 if (e.target.matches("input[type='checkbox']")) {
-                    if (e.target.checked){
-                        const task = allTodo.find(todo => todo.getID() === e.target.id);
+                    const task = allTodo.find(todo => todo.getID() === e.target.id);
+                    if (task){
+                        task.isComplete(e.target.checked);
+                        localStorage.setItem('myTodos', JSON.stringify(allTodo));
                         console.log(task);
-                        if (task){
-                            task.isComplete(e.target.checked);
-                            localStorage.setItem('myTodos', JSON.stringify(allTodo));
-                            console.log(task);
-                        }
-                    } else if (!e.target.checked){
-                        const task = allTodo.find(todo => todo.getID() === e.target.id);
-                        console.log(task);
-                        if (task){
-                            task.isComplete(e.target.checked);
-                            console.log(task);
-                            localStorage.setItem('myTodos', JSON.stringify(allTodo));
-                        }
                     }
-                } else return;
+                }
             });
         });
 
         document.addEventListener('click', (e) => {
-            const allTasks = Storage.load('myTodos');
+            // const allTasks = Storage.load('myTodos');
+                const allTasks = TodoCtr.getTodo();
+
             const selectedProject = e.target.innerText;
 
             if (e.target.matches('.btn-project') && e.target.innerText !== 'All Tasks') {
@@ -186,7 +179,9 @@ const UI = (() => {
         });
 
         document.addEventListener('DOMContentLoaded', () => {
-            const allTodo = Storage.load('myTodos');
+            // const allTodo = Storage.load('myTodos');
+                const allTodo = TodoCtr.getTodo();
+
 
             document.addEventListener('change', (e) => {
                 if (e.target.matches("input[type='checkbox']")) {
@@ -210,7 +205,7 @@ const UI = (() => {
     }
 
     return {
-        // initTask,
+        initTask,
         initProject,
         btnClicks
     }

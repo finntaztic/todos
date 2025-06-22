@@ -3,6 +3,6 @@ import "./styles.css";
 import { UI } from "./btnController";
 // UI.btnClicks();
 
-// UI.initTask();
+UI.initTask();
 UI.initProject();
 UI.btnClicks();
