@@ -19,6 +19,7 @@ const Project = (() => {
             const li = document.createElement("li"); 
             const btnLi = document.createElement('button');
             const btnDelProject = document.createElement('button');
+            btnDelProject.classList = 'btn-del-project';
             btnDelProject.innerText = 'delete';
 
             btnLi.innerText = project;
@@ -33,7 +34,6 @@ const Project = (() => {
         console.log(project);
         option.innerText = project;
         projectLi.appendChild(option);
-    
         })
     }
 

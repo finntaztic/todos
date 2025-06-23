@@ -75,7 +75,7 @@ const TodoCtr = (() => {
                 <select class="editable" data-field= "project">
                 </select>
                 <p class="editable" data-field= "project" id = "projectSelect">${todo.getProject()}</p> 
-                <button class="btn-delete">Delete</button>
+                <button class="btn-delete" id="${todo.getID()}">Delete</button>
                 `;
 
             listTask.appendChild(todoContainer);

@@ -1,4 +1,3 @@
-import { Todo } from "./TodoApp.js";
 import { TodoCtr } from "./TodoController.js";
 import { Storage } from "./storage.js";
 import { Project } from "./project.js";
@@ -41,28 +40,6 @@ const UI = (() => {
         TodoCtr.setTodo(savedTasks);  // <-- rehydrate plain objects
         TodoCtr.render(TodoCtr.getTodo());
     }
-    
-    // const savedTask = JSON.parse(localStorage.getItem('myTodos'));
-
-
-    // function initTask() {
-    //     localStorage.setItem('myTodos', TodoCtr.getTodo());
-    //     const saved = localStorage.getItem('myTodos');
-    //     const savedTodos = saved ? JSON.parse(saved) : [];
-
-    //     if (savedTodos.length > 0) {
-    //         console.log(savedTodos);
-    //         TodoCtr.render(savedTodos);
-    //     } else {
-    //         const pretask = TodoCtr.createTodo('this is title', 'this is description', '2025-11-25', '⭐️⭐️');
-    //         console.log(pretask);
-    //         // You can uncomment below if you want to save the pretask
-    //         TodoCtr.pushTodo(pretask);
-    //         localStorage.setItem('myTodos', JSON.stringify(TodoCtr.getTodo()));
-    //         TodoCtr.render(TodoCtr.getTodo());
-    //     }
-    // }
-    
 
     function btnClicks (){
         //adding projects listeners
@@ -70,9 +47,13 @@ const UI = (() => {
         btnCloseProject.addEventListener('click', () => {dialogAddTask.close()});
 
         btnAddProject.addEventListener('click', (e) => {
+
+             const allProject = Project.get();
+
             e.preventDefault();
             const newProject = document.querySelector('#project-input').value;
-            const existingProjects = JSON.parse(localStorage.getItem('myProjects'));// || []; //get the current local storage
+            allProject.push(newProject);
+            const existingProjects = JSON.parse(localStorage.getItem('myProjects')) || []; // <- add fallback to []
             existingProjects.push(newProject); //pushes new project to the local storage
             localStorage.setItem("myProjects", JSON.stringify(existingProjects)); // save it in local  storage again with new array
             Project.render(JSON.parse(localStorage.getItem('myProjects'))); // renders the content of local storage to the webpage
@@ -147,8 +128,7 @@ const UI = (() => {
 
         document.addEventListener('DOMContentLoaded', () => {
             // const allTodo = Storage.load('myTodos');
-                const allTodo = TodoCtr.getTodo();
-
+            const allTodo = TodoCtr.getTodo();
 
             document.addEventListener('change', (e) => {
                 if (e.target.matches("input[type='checkbox']")) {
@@ -164,8 +144,7 @@ const UI = (() => {
 
         document.addEventListener('click', (e) => {
             // const allTasks = Storage.load('myTodos');
-                const allTasks = TodoCtr.getTodo();
-
+            const allTasks = TodoCtr.getTodo();
             const selectedProject = e.target.innerText;
 
             if (e.target.matches('.btn-project') && e.target.innerText !== 'All Tasks') {
@@ -180,9 +159,7 @@ const UI = (() => {
 
         document.addEventListener('DOMContentLoaded', () => {
             // const allTodo = Storage.load('myTodos');
-                const allTodo = TodoCtr.getTodo();
-
-
+            const allTodo = TodoCtr.getTodo();
             document.addEventListener('change', (e) => {
                 if (e.target.matches("input[type='checkbox']")) {
                     if (e.target.checked){
@@ -202,6 +179,55 @@ const UI = (() => {
                 } else return;
             });
         });
+
+        document.addEventListener('click', (e) => {
+            const allTasks = TodoCtr.getTodo();
+            // const selectedButton = e.target.innerText;
+
+            if (e.target.matches('.btn-delete')) {
+                const parentNode = e.target.parentNode;  // Get the parent element
+                const btnID = e.target.id;
+
+                const index = allTasks.findIndex(todo => todo.getID() === btnID);
+
+                if (index !== -1) {
+                    allTasks.splice(index, 1);  // Remove from array
+                    console.log('Deleted from array:', btnID);
+                } else {
+                    console.log('Task not found.');
+                }
+                console.log(index);
+                console.log(btnID);
+                console.log(parentNode);
+
+                parentNode.remove();
+                Storage.save('myTodos', allTasks);
+            }
+        });
+
+        document.addEventListener('click', (e) => {
+            const allProject = Project.get();
+
+            if (e.target.matches('.btn-del-project')) {
+
+                const li = e.target.closest('li'); // find the parent <li>
+                const projectBtn = li.querySelector('.btn-project'); // find the button inside this <li>
+                const projectName = projectBtn.innerText;
+
+                console.log(projectName);
+
+                li.remove(); // remove the li from DOM
+
+                const index = allProject.findIndex(project => project === projectName);
+
+                console.log(allProject);
+                if (index !== -1) {
+                    allProject.splice(index, 1);
+                    Storage.save('myProjects', allProject);
+                }
+            }
+        });
+
     }
 
     return {
