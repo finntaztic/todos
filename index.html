@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
+<script defer src="main.js"></script></head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Todo</h1>
+        <!-- <button type="button" class="btn-open-add-task">Add task</button> -->
+
+    </header>
+
+    <section class="sidebar">
+      <nav>
+        <button class="btn-project">All Tasks</button>
+        <div class="div_project">
+          <p>Projects</p>
+          <button class="btn-open-add-project" type="button">+</button>
+        </div>
+
+        <ul class="list-project"></ul>
+
+        <dialog class="dialog-add-project">
+          <button class="btn-close-project" type="button">X</button>
+          <h2>Add new project</h2>
+          <input type="text" id="project-input" name="project-input" /><br />
+          <button class="btn-add-project" type="button">Add project</button>
+        </dialog>
+      </nav>
+    </section>
+
+    <div>
+        <button type="button" class="btn-open-add-task">Add task</button>
+
+    <div class="put-task">
+            <input type="checkbox" id="task-test" name="task-test" />
+            <label for="task-test">task test</label>
+
+    </div>
+   </div>
+
+    <div>
+      <dialog class="dialog-add-task">
+        <button class="btn-close-task" type="button">X</button>
+        <p>Add new task</p>
+        <form method="dialog">
+          <label for="title">Title</label><br />
+          <input type="text" id="title" name="title" /><br />
+
+          <label for="description">Description</label><br />
+          <input type="text" id="description" name="description" /><br />
+
+          <label for="date">Due Date</label><br />
+          <input type="date" id="date" value="2025-11-25" /><br />
+
+          <label for="priority">Priority</label><br />
+          <select name="priority" id="priority">
+            <option value="⭐️⭐️⭐️">⭐️⭐️⭐️ High</option>
+            <option value="⭐️⭐️">⭐️⭐️ Mid</option>
+            <option value="⭐️">⭐️ Low</option>
+          </select><br />
+
+          <label for="project">Project</label><br />
+          <select name="project" id="project"></select><br />
+
+          <button class="btn-add-task" type="submit">Add new Task</button>
+        </form>
+      </dialog>
+    </div>
+  </div>
+</body>
+</html>
